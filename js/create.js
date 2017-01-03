@@ -10,8 +10,12 @@ function preload() {
     game.load.image('ground', 'assets/grass.png');
     game.load.image('castle', 'assets/castle.png');
     game.load.image('fruit', 'assets/fruit.png');
+    game.load.image('tree', 'assets/tree1.png');
+
     game.load.image('rosy', 'assets/rosy-standing.png');
+    game.load.image('queen', 'assets/queen.png');
     game.load.audio('soundtrack', 'assets/Felipe_Sarro_-_15_-_Bach_Cello_Suite_1_BWV_1007_Prelude_Siloti_transcription.mp3');
+    game.load.audio('glass', 'assets/glass.m4a');
 }
 
 function create() {
@@ -27,6 +31,8 @@ function create() {
     music = game.add.audio('soundtrack');
     music.play();
 
+    glass = game.add.audio('glass');
+
     platforms = game.add.group();
     platforms.enableBody = true;
     var ground = platforms.create(0, 550, 'ground');
@@ -35,12 +41,24 @@ function create() {
     // ground.scale.setTo(2, 2);
     ground.body.immovable = true;
 
-    var castle = platforms.create(0, 100, 'castle');
-    castle.body.immovable = true;
+    game.add.image(0, 120, 'castle');
+
+    trees = game.add.group();
+    tree1 = trees.create(650, 120, 'tree');
+
+    npcs = game.add.group();
+    npcs.enableBody = true;
+    var queen = npcs.create(280, 430, 'queen');
+    queen.body.immovable = true;
+
+    npcs = game.add.group();
+    npcs.enableBody = true;
+    var queen = npcs.create(280, 430, 'queen');
+    queen.body.immovable = true;
 
     //  Now let's create two ledges
-    var ledge = platforms.create(400, 330, 'ground');
-    ledge.body.immovable = true;
+    // var ledge = platforms.create(600, 330, 'ground');
+    // ledge.body.immovable = true;
 
     // ledge = platforms.create(-150, 250, 'ground');
     // ledge.body.immovable = true;
@@ -58,6 +76,7 @@ function create() {
     // player.animations.add('left', [0, 1, 2, 3], 10, true);
     // player.animations.add('right', [5, 6, 7, 8], 10, true);
     scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+    scoreText.fixedToCamera = true;
 
     //  Our controls.
     cursors = game.input.keyboard.createCursorKeys();

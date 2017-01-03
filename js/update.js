@@ -2,6 +2,8 @@
 function update() {
     // Physics is hard.
     game.physics.arcade.collide(player, platforms);
+    game.physics.arcade.collide(player, npcs);
+
     game.physics.arcade.collide(fruits, platforms);
     game.physics.arcade.overlap(player, fruits, collectFruit, null, this);
 
@@ -25,5 +27,6 @@ function update() {
     //  Allow the player to jump if they are touching the ground.
     if (cursors.up.isDown && player.body.touching.down) {
         player.body.velocity.y = -400;
+        player.game.camera.y += 3;
     }
 }
