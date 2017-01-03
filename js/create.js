@@ -35,33 +35,25 @@ function create() {
 
     platforms = game.add.group();
     platforms.enableBody = true;
-    var ground = platforms.create(0, 550, 'ground');
+
     //  Scale it to fit the width of the game
     // (the original sprite is 400x32 in size)
     // ground.scale.setTo(2, 2);
-    ground.body.immovable = true;
-
+    for (var i = 0; i < 5; i++) {
+        var ground = platforms.create(i * 800, 560, 'ground');
+        ground.body.immovable = true;
+    }
     game.add.image(0, 120, 'castle');
 
     trees = game.add.group();
-    tree1 = trees.create(650, 120, 'tree');
+    trees.create(600, 120, 'tree');
+    trees.create(900, 120, 'tree');
+    trees.create(1200, 120, 'tree');
 
     npcs = game.add.group();
     npcs.enableBody = true;
-    var queen = npcs.create(280, 430, 'queen');
+    var queen = npcs.create(280, 440, 'queen');
     queen.body.immovable = true;
-
-    npcs = game.add.group();
-    npcs.enableBody = true;
-    var queen = npcs.create(280, 430, 'queen');
-    queen.body.immovable = true;
-
-    //  Now let's create two ledges
-    // var ledge = platforms.create(600, 330, 'ground');
-    // ledge.body.immovable = true;
-
-    // ledge = platforms.create(-150, 250, 'ground');
-    // ledge.body.immovable = true;
 
     // The player and its settings
     player = game.add.sprite(428, 128, 'rosy');
@@ -83,10 +75,10 @@ function create() {
 
     fruits = game.add.group();
     fruits.enableBody = true;
-    for (var i = 0; i < 12; i++)
-    {
-        var fruit = fruits.create(i * 70, 0, 'fruit');
-        fruit.body.gravity.y = 3;
-        fruit.body.bounce.y = 1 + Math.random() * 0.2;
-    }    
+    fruits.create(625, 160, 'fruit');
+    fruits.create(650, 140, 'fruit');
+    fruits.create(600, 220, 'fruit');
+    fruits.create(750, 240, 'fruit');
+    fruits.create(700, 240, 'fruit');
+    fruits.create(750, 220, 'fruit');
 }
