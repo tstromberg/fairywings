@@ -46,9 +46,21 @@ function create() {
     game.add.image(0, 120, 'castle');
 
     trees = game.add.group();
-    trees.create(600, 120, 'tree');
-    trees.create(900, 120, 'tree');
-    trees.create(1200, 120, 'tree');
+
+    fruits = game.add.group();
+    fruits.enableBody = true;
+
+    for (var i = 0; i < 3; i++) {
+       if (i == 0) {
+          fruits.create(625+(i*300), 160, 'fruit');
+          fruits.create(650+(i*300), 140, 'fruit');
+       }
+       fruits.create(600+(i*300), 220, 'fruit');
+       fruits.create(750+(i*300), 240, 'fruit');
+       fruits.create(700+(i*300), 240, 'fruit');
+       fruits.create(750+(i*300), 220, 'fruit');
+       trees.create(600+(i*300), 120, 'tree');
+    }
 
     npcs = game.add.group();
     npcs.enableBody = true;
@@ -72,13 +84,4 @@ function create() {
 
     //  Our controls.
     cursors = game.input.keyboard.createCursorKeys();
-
-    fruits = game.add.group();
-    fruits.enableBody = true;
-    fruits.create(625, 160, 'fruit');
-    fruits.create(650, 140, 'fruit');
-    fruits.create(600, 220, 'fruit');
-    fruits.create(750, 240, 'fruit');
-    fruits.create(700, 240, 'fruit');
-    fruits.create(750, 220, 'fruit');
 }
