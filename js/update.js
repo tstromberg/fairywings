@@ -11,9 +11,11 @@ function update() {
     // Handle character movement.
     if (cursors.left.isDown) {
         player.body.velocity.x = -150;
+        player.game.camera.x -= 3;
         player.animations.play('left');
     }  else if (cursors.right.isDown) {
         player.body.velocity.x = 150;
+        player.game.camera.x += 3;
         player.animations.play('right');
     } else {
         player.animations.stop();

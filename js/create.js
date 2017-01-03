@@ -16,14 +16,20 @@ function preload() {
 
 function create() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
-    game.add.sprite(0, 0, 'sky');
+
+    // a bigger world
+    game.world.setBounds(0, 0, 2000, 2000);
+
+    var sky = game.add.sprite(0, 0, 'sky');
+    sky.fixedToCamera = true;
+
 
     music = game.add.audio('soundtrack');
     music.play();
 
     platforms = game.add.group();
     platforms.enableBody = true;
-    var ground = platforms.create(0, game.world.height - 64, 'ground');
+    var ground = platforms.create(0, 550, 'ground');
     //  Scale it to fit the width of the game
     // (the original sprite is 400x32 in size)
     // ground.scale.setTo(2, 2);
@@ -40,7 +46,7 @@ function create() {
     // ledge.body.immovable = true;
 
     // The player and its settings
-    player = game.add.sprite(128, game.world.height - 600, 'rosy');
+    player = game.add.sprite(428, 128, 'rosy');
 
     //  We need to enable physics on the player
     game.physics.arcade.enable(player);
