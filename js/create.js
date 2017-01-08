@@ -11,6 +11,10 @@ function preload() {
     game.load.image('castle', 'assets/castle.png');
     game.load.image('fruit', 'assets/fruit.png');
     game.load.image('tree', 'assets/tree1.png');
+    game.load.image('bush', 'assets/bush1.png');
+    game.load.image('bush2', 'assets/bush2.png');
+    game.load.image('rainbow_tree', 'assets/rainbow_tree1.png');
+    game.load.image('rainbow_tree2', 'assets/rainbow_tree2.png');
 
     game.load.image('rosy', 'assets/rosy-standing.png');
     game.load.image('queen', 'assets/queen.png');
@@ -66,6 +70,32 @@ function create() {
     npcs.enableBody = true;
     var queen = npcs.create(game.cache.getImage("castle").width + 10, groundHeight - game.cache.getImage("queen").height + 5, 'queen');
     queen.body.immovable = true;
+
+    fruits = game.add.group();
+    fruits.enableBody = true;
+
+    treeHeight = plantHeight - game.cache.getImage("tree").height
+    for (var i = 0; i < 3; i++) {
+       if (i == 0) {
+          fruits.create(625+(i*300), treeHeight+20, 'fruit');
+          fruits.create(650+(i*300), treeHeight+30, 'fruit');
+       }
+       fruits.create(600+(i*300), treeHeight+65, 'fruit');
+       fruits.create(750+(i*300), treeHeight+85, 'fruit');
+       fruits.create(700+(i*300), treeHeight+85, 'fruit');
+       fruits.create(750+(i*300), treeHeight+65, 'fruit');
+       trees.create(600+(i*300), treeHeight, 'tree');
+    }
+
+    trees.create(1500, plantHeight - game.cache.getImage("rainbow_tree"), 'rainbow_tree');
+    trees.create(1900, plantHeight - game.cache.getImage("rainbow_tree2"), 'rainbow_tree2');
+
+
+    bushes = game.add.group()
+    bushes.enableBody = true;
+    bushes.create(800, plantHeight - game.cache.getImage("bush").height, 'bush');
+    bushes.create(850, plantHeight - game.cache.getImage("bush2").height, 'bush2');
+    // bushes.body.immovable = true;
 
     // draw the ground last.
     for (var i = 0; i < 5; i++) {
