@@ -12,11 +12,11 @@ function update() {
 
     // Handle character movement.
     if (cursors.left.isDown) {
-        player.body.velocity.x = -150;
+        player.body.velocity.x = -200;
         player.animations.play('left');
         player.game.camera.focusOnXY(player.x, player.y-200) 
     }  else if (cursors.right.isDown) {
-        player.body.velocity.x = 150;
+        player.body.velocity.x = 200;
         player.animations.play('right');
         player.game.camera.focusOnXY(player.x, player.y-200) 
     } else {

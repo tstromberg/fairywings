@@ -1,4 +1,4 @@
-var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(constants.gameWidth, constants.gameHeight, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 var player;
 var platforms;
 var cursors;
@@ -22,11 +22,10 @@ function create() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
     // a bigger world
-    game.world.setBounds(0, 0, 2000, 2000);
+    game.world.setBounds(0, 0, constants.worldWidth, constants.worldHeight);
 
     var sky = game.add.sprite(0, 0, 'sky');
     sky.fixedToCamera = true;
-
 
     music = game.add.audio('soundtrack');
     music.play();
@@ -39,39 +38,48 @@ function create() {
     //  Scale it to fit the width of the game
     // (the original sprite is 400x32 in size)
     // ground.scale.setTo(2, 2);
-    for (var i = 0; i < 5; i++) {
-        var ground = platforms.create(i * 800, 560, 'ground');
-        ground.body.immovable = true;
-    }
-    game.add.image(0, 120, 'castle');
+    groundHeight = constants.gameHeight - game.cache.getImage("ground").height; 
+    plantHeight = constants.gameHeight - game.cache.getImage("ground").height + 30; 
+    
+    // offset of 30 so that it falls into the grass.
+    game.add.image(0, plantHeight - game.cache.getImage("castle").height, 'castle');
 
     trees = game.add.group();
 
     fruits = game.add.group();
     fruits.enableBody = true;
 
+    treeHeight = plantHeight - game.cache.getImage("tree").height
     for (var i = 0; i < 3; i++) {
        if (i == 0) {
-          fruits.create(625+(i*300), 160, 'fruit');
-          fruits.create(650+(i*300), 140, 'fruit');
+          fruits.create(625+(i*300), treeHeight+20, 'fruit');
+          fruits.create(650+(i*300), treeHeight+30, 'fruit');
        }
-       fruits.create(600+(i*300), 220, 'fruit');
-       fruits.create(750+(i*300), 240, 'fruit');
-       fruits.create(700+(i*300), 240, 'fruit');
-       fruits.create(750+(i*300), 220, 'fruit');
-       trees.create(600+(i*300), 120, 'tree');
+       fruits.create(600+(i*300), treeHeight+65, 'fruit');
+       fruits.create(750+(i*300), treeHeight+85, 'fruit');
+       fruits.create(700+(i*300), treeHeight+85, 'fruit');
+       fruits.create(750+(i*300), treeHeight+65, 'fruit');
+       trees.create(600+(i*300), treeHeight, 'tree');
     }
 
     npcs = game.add.group();
     npcs.enableBody = true;
-    var queen = npcs.create(280, 440, 'queen');
+    var queen = npcs.create(game.cache.getImage("castle").width + 10, groundHeight - game.cache.getImage("queen").height + 5, 'queen');
     queen.body.immovable = true;
 
+    // draw the ground last.
+    for (var i = 0; i < 5; i++) {
+        var ground = platforms.create(i * game.cache.getImage("ground").width, groundHeight, 'ground');
+        ground.body.immovable = true;
+    }
+
     // The player and its settings
-    player = game.add.sprite(428, 128, 'rosy');
+    // 600?
+    player = game.add.sprite(trees.children[0].x - game.cache.getImage("rosy").width - 30, 0, 'rosy');
 
     //  We need to enable physics on the player
     game.physics.arcade.enable(player);
+    // how fast does she fall to the ground & bounce.
     player.body.bounce.y = 0.2;
     player.body.gravity.y = 300;
     player.body.collideWorldBounds = true;
