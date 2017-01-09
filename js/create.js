@@ -15,6 +15,7 @@ function preload() {
     game.load.image('bush2', 'assets/bush2.png');
     game.load.image('rainbow_tree', 'assets/rainbow_tree1.png');
     game.load.image('rainbow_tree2', 'assets/rainbow_tree2.png');
+    game.load.image('mushroom', 'assets/mushroom.png');
 
     game.load.image('rosy', 'assets/rosy-standing.png');
     game.load.image('queen', 'assets/queen.png');
@@ -95,13 +96,24 @@ function create() {
     bushes.enableBody = true;
     bushes.create(800, plantHeight - game.cache.getImage("bush").height, 'bush');
     bushes.create(850, plantHeight - game.cache.getImage("bush2").height, 'bush2');
-    // bushes.body.immovable = true;
+    bushes.forEach(function(entry) {
+        entry.body.immovable = true;
+    });
+
+    mushrooms = game.add.group()
+    mushrooms.enableBody = true;
+
+    mushrooms.create(1800, plantHeight - game.cache.getImage("mushroom").height, 'mushroom');
+    mushrooms.forEach(function(entry) {
+        entry.body.immovable = true;
+    });
 
     // draw the ground last.
     for (var i = 0; i < 5; i++) {
         var ground = platforms.create(i * game.cache.getImage("ground").width, groundHeight, 'ground');
         ground.body.immovable = true;
     }
+    
 
     // The player and its settings
     // 600?

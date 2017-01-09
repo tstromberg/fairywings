@@ -4,7 +4,8 @@ function update() {
     game.physics.arcade.collide(player, platforms);
     game.physics.arcade.collide(player, npcs);
 
-    game.physics.arcade.collide(fruits, platforms);
+    game.physics.arcade.collide(player, bushes);
+    game.physics.arcade.collide(player, mushrooms);
     game.physics.arcade.overlap(player, fruits, collectFruit, null, this);
 
     //  Reset the players velocity (movement)
